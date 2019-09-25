@@ -1,6 +1,14 @@
 # Cisco Meraki API VPN Map
 
-Using Cisco Meraki and Google Maps API's, plot MX's on world map and draw lines between Spokes and Hubs to show VPN paths.
+Using Cisco Meraki and Google Maps API's, plot MX's on world map and draw lines between Spokes and Hubs to show VPN paths. 
+
+## Features
+
+- [x] Plot MX/Z devices with VPN enabled on Map
+- [x] Show Offline/Online Devices
+- [x] VPN paths between spokes and hubs
+- [x] Device information on hover
+- [x] VPN Checker Tool
 
 # Demo
 View demo <a href="kersnovske.com/">kersnovske.com</a>.
@@ -15,8 +23,8 @@ View demo <a href="kersnovske.com/">kersnovske.com</a>.
 Clone the source locally:
 
 ```sh
-$ git clone https://github.com/
-$ cd folder
+$ git clone https://github.com/benbenbenbenbenbenbenbenbenben/meraki-vpn-map.git
+$ cd meraki-vpn-map
 ```
 
 Use your package manager to install `npm`.
@@ -36,9 +44,7 @@ Start the app:
 $ npm start
 ```
 
-## Features
 
-- [x] Meraki
 
 ## Files
 
@@ -50,10 +56,8 @@ $ npm start
 - Path
 - Express
 - Hbs
-    Create the website files
 - Bottleneck
-    Queues API Calls to prevent Meraki API Call limit
-
+   
 ## Usage
 
 Add your Meraki apiKey and your orgID values to src/app.js
@@ -80,6 +84,8 @@ https://maps.googleapis.com/maps/api/js?key=YOURKEYGOESHERE&callback=initMap&sen
 
 ## Built with
 - [node-meraki-dashboard](https://github.com/tejashah88/node-meraki-dashboard)
+- [IP Checker](https://tech.mybuilder.com/determining-if-an-ipv4-address-is-within-a-cidr-range-in-javascript/)
+- [Curved Lines in Google Maps](https://stackoverflow.com/questions/34131378/how-to-make-a-dashed-curved-polyline-in-google-maps-js-api
 
 ## 
 
