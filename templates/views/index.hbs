@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  {{>header}}
+  <body class="text-center">
+    {{!-- Google Maps --}}
+    <div id="map" class="map"></div>
+    {{!-- Main Container --}}
+    <div id="main" class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <h3 class="masthead-brand">Meraki VPN Map</h3>
+          <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link active" href="#">Home</a>
+            <a class="nav-link" target="_blank" href="https://www.linkedin.com/in/benkersnovske/">About</a>
+          </nav>
+        </div>
+      </header>
+      <main role="main" class="inner cover">
+        <h1 class="cover-heading">Load Meraki MX's with VPN Enabled.</h1>
+        <p class="lead">Plot MX's and VPN paths based on addresses and VPN information in Meraki dashboard.</p>
+        <p class="lead">
+            <button id="checkerButton" type="button" disabled class="btn btn-lg btn-secondary" onclick="toggleView()">VPN Checker Tool</button>
+        </p>
+        <div class="loader" id="loader"></div>
+        <p id="loadStatus"></p>
+      </main>
+      {{>footer}}
+    </div>
+    {{!-- Editor --}}
+    <div id="editor" class="cover-container h-100 p-3 mx-auto flex-column hide-loader">
+      <header class="masthead">
+        <div class="inner">
+          <h3 class="masthead-brand">VPN Checker</h3>
+          <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link" href="#" onclick="toggleView()">Home</a>
+            <a class="nav-link" target="_blank" href="https://www.linkedin.com/in/benkersnovske/">About</a>
+          </nav>
+        </div>
+      </header>
+
+      <main role="main" class="inner cover">
+        <h1 class="cover-heading">Check reachability across VPNs.</h1>
+        <p class="lead">Enter source and destination IP to run varios connectivity checks based on configuration.</p>
+          <hr>
+          <div class="row">
+            <div class="col-md-6 pl-1">
+              <div class="form-group">
+                <label>Source IP</label>
+                <input type="text" id="srcIP" class="form-control" placeholder="192.168.127.1" value="192.168.127.1">
+              </div>
+            </div>
+            <div class="col-md-6 pl-1">
+              <div class="form-group">
+                <label>Destination IP</label>
+                <input type="text" id="dstIP" class="form-control" placeholder="192.168.128.1" value="192.168.128.1">
+              </div>
+            </div>
+            <p class="lead">
+             <button type="button" onclick="ipChecker(document.getElementById('srcIP').value, document.getElementById('dstIP').value), window.location = '#results';" class="btn btn-primary">Check Connectivity</button>
+             {{!-- Demo Examples - Remove --}}
+            <button class="btn btn-outline-primary float-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Examples</button>
+              <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                  <a href="#" onclick="ipChecker('192.168.125.1', '192.168.126.1'), document.getElementById('srcIP').value = '192.168.125.1', document.getElementById('dstIP').value = '192.168.126.1', window.location = '#results'; return false;" class="btn btn-outline-primary">Multi-hop</a>
+                  <a href="#" onclick="ipChecker('192.168.124.1', '192.168.128.1'), document.getElementById('srcIP').value = '192.168.124.1', document.getElementById('dstIP').value = '192.168.126.1', window.location = '#results'; return false;" class="btn btn-outline-primary">VPN Firewall</a>
+                  <a href="#" onclick="ipChecker('10.0.0.1', '192.168.128.1'), document.getElementById('srcIP').value = '10.0.0.1', document.getElementById('dstIP').value = '192.168.128.1', window.location = '#results'; return false;" class="btn btn-outline-primary">VPN not enabled</a>
+                  <a href="#" onclick="ipChecker('192.168.200.1', '192.168.128.1'), document.getElementById('srcIP').value = '192.168.200.1', document.getElementById('dstIP').value = '192.168.128.1', window.location = '#results'; return false;" class="btn btn-outline-primary">No Subnet</a>
+                </div>
+              </div>
+              {{!-- END Demo Examples --}}
+            </p>
+          </div>
+          {{!-- Checks --}}
+          <div class="container-progress">
+            <ul class="progressbar">
+              <li id="check0">Start</li>
+              <li id="check1">Subnets</li>
+              <li id="check2">Not Local</li>
+              <li id="check3">VPN Enabled</li>
+              <li id="check4">VPN Firewall</li>
+            </ul>
+          </div>
+
+      </main>
+      {{>footer}}
+      <!--Results Modal -->
+      <div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Check Failed!</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="error-response">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary"data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!--    JS Files   -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="/js/ipchecker.js"></script>
+    {{>js}}
+    <!--  Google Maps Plugin    -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOURKEYGOESHERE&callback=initMap&sensor=false&libraries=geometry,places&ext=.js"
+    async defer></script>
+</body>
+
+</html>
