@@ -1,6 +1,6 @@
-# Cisco Meraki API VPN Map
+# Cisco Meraki - API VPN Map
 
-Using Cisco Meraki and Google Maps API's, plot MX's on world map and draw lines between Spokes and Hubs to show VPN paths. 
+Using Cisco Meraki and Google Maps API's, plot MX's on world map and draw lines between Spokes and Hubs to show VPN paths. Use the VPN Checker Tool for IP reachability across your VPNs.
 
 ## Features
 
@@ -10,16 +10,14 @@ Using Cisco Meraki and Google Maps API's, plot MX's on world map and draw lines 
 - [x] Device information on hover
 - [x] VPN Checker Tool
 
-# Demo
-View demo <a href="kersnovske.com/">kersnovske.com</a>.
+## Demo
+View live demo: <a href="kersnovske.com/">kersnovske.com</a>.
 <br>
 
-<img src="gif">
+<img src="https://www.kersnovske.com/meraki/images/vpn-map.png">
 
 ## Installation
 
-
-### For developers
 Clone the source locally:
 
 ```sh
@@ -27,7 +25,7 @@ $ git clone https://github.com/benbenbenbenbenbenbenbenbenben/meraki-vpn-map.git
 $ cd meraki-vpn-map
 ```
 
-Use your package manager to install `npm`.
+Install `npm` and `nodejs`:
 
 ```sh
 $ sudo apt-get install npm nodejs
@@ -41,15 +39,46 @@ $ npm install
 Start the app:
 
 ```sh
-$ npm start
+$ node src/app.js
+```
+   
+## Usage
+
+1) Add your Meraki apiKey and your orgID values to src/app.js
+
+2) Add Google Maps api key to templates/views/index.hbs
+https://maps.googleapis.com/maps/api/js?key=YOURKEYGOESHERE&callback=initMap&sensor=false&libraries=geometry,places&ext=.js
+
+3) Start/Restart the app:
+
+```sh
+$ node src/app.js
+```
+   or if using nodemon:
+
+```sh
+$ nodemon src/app.js
 ```
 
+4) Open web browser and go to:
+<a href="http://localhost:3000/">http://localhost:3000/<a>
 
+## API Flow
 
-## Files
+Get Org VPN firewall rules:
+- add to new vpn rules array
 
-### Main 
-- app.js
+Get DeviceStatuses:
+- Returns list of all devices's, sort those with WAN1IP property
+
+Get Device details:
+- append lat, lng, address and model to MX array
+
+Get Perf score for each online MX:
+- append to MX array
+
+Get VPN Details for each MX:
+- append to MX array
 
 ## Dependencies
 
@@ -57,38 +86,13 @@ $ npm start
 - Express
 - Hbs
 - Bottleneck
-   
-## Usage
-
-Add your Meraki apiKey and your orgID values to src/app.js
-Add Google Maps api key to templates/views/index.hbs
-https://maps.googleapis.com/maps/api/js?key=YOURKEYGOESHERE&callback=initMap&sensor=false&libraries=geometry,places&ext=.js
-
-<kbd>Command/ctrl + R</kbd> - Reload
-
-<kbd>command + q</kbd> - Quit App (while window is open).
-
-
-// API Flow
-//Get DeviceStatuses
-//      -- Returns list of all devices's, sort those with WAN1IP property
-//          -- Save to Array mxList
-//Get Device details # = size of mxList
-//      -- append lat, lng, address and model to mxList
-//Get Perf score for each online MX
-//      -- append to mxList
-//Get VPN Details for each MX
-//      -- append to mxLit
-//Get Org VPN firewall rules
-//      -- add to new array
 
 ## Built with
 - [node-meraki-dashboard](https://github.com/tejashah88/node-meraki-dashboard)
 - [IP Checker](https://tech.mybuilder.com/determining-if-an-ipv4-address-is-within-a-cidr-range-in-javascript/)
-- [Curved Lines in Google Maps](https://stackoverflow.com/questions/34131378/how-to-make-a-dashed-curved-polyline-in-google-maps-js-api
-
-## 
-
+- [Curved Lines in Google Maps](https://stackoverflow.com/questions/34131378/how-to-make-a-dashed-curved-polyline-in-google-maps-js-api)
+- [Bootstrap CSS](https://getbootstrap.com/)
+- [Google Maps Javascript API](https://developers.google.com/maps/documentation/javascript/tutorial)
 
 ## License
 
