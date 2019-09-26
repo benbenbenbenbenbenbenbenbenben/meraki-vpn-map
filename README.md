@@ -96,4 +96,4 @@ Get VPN Details for each MX:
 
 ## License
 
-MIT  © 
+MIT © Ben 2019
