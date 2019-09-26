@@ -86,6 +86,8 @@ Get VPN Details for each MX:
 - Express
 - Hbs
 - Bottleneck
+- Axios
+- JSON-Bigint
 
 ## Built with
 - [node-meraki-dashboard](https://github.com/tejashah88/node-meraki-dashboard)
