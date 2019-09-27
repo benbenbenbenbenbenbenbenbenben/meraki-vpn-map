@@ -178,6 +178,7 @@ function checkIpSubnet(testIP){
 function checkIpFirewall(ip1, ip2){
     var rulesArr = []
     for(let i=0; i < vpnRules.length; i++){ //loop vpn firewall rules
+        vpnRules[i]['ruleNum'] = i + 1
         if(vpnRules[i].policy === 'deny'){
             let srcCiderArr = vpnRules[i].srcCidr.split(',');
             if(isIp4InCidrs(ip1, srcCiderArr)){ //Check src ip matches src subnet in vpn rules
