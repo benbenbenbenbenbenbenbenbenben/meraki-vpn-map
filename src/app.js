@@ -10,6 +10,8 @@ const app = express()
 const dashboard = require('./utils/dashboard')(apiKey)
 const Bottleneck = require("bottleneck"); 
 
+const port = process.env.PORT || 3000
+
 // Queues API Calls to prevent Meraki API Call limit
 const limiter = new Bottleneck({
     minTime: 333,
@@ -48,8 +50,8 @@ app.get('/mxs', (req, res) => {
     })
 })
 
-app.listen(3000, () => {
-    console.log('Sever is running on port 3000')
+app.listen(port, () => {
+    console.log('Server running on port '+port)
 })
 
 // Main Function to get dashboard data
