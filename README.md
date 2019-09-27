@@ -53,6 +53,27 @@ $ node src/app.js
 Open web browser and go to:
 <a href="http://localhost:3000/">http://localhost:3000/<a>
 
+## VPN Checker Tool
+
+Check source and destination IP Addresses for vpn reachability across your Meraki VPN estate.
+
+### Usage
+
+Enter source and destination IP addresses and select check connectivity to run 4 tests:
+
+1) Check both IPs exist in a subnet
+2) Check subnets are not on the same router
+3) Check subnets are enabled for VPN
+4) Check IPs are not blocked by VPN Firewall
+
+If all checks pass VPN paths will highlight in green!
+
+Otherwise user will be alerted on failed check.
+
+#### Note
+
+This tool only checks device/dashboard configuration and does not check if MX is online or VPN tunnel is up and passing traffic.
+
 ## API Flow
 
 Get Org VPN firewall rules:
