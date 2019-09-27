@@ -12,7 +12,7 @@ Using Cisco Meraki and Google Maps API's, plot MX's on world map and draw lines 
 - [x] VPN Checker Tool
 
 ## Demo
-View live demo: <a href="kersnovske.com/">kersnovske.com</a>.
+View live demo: <a href="https://vpn-map.herokuapp.com">https://vpn-map.herokuapp.com</a>.
 <br>
 
 <img src="https://www.kersnovske.com/meraki/images/vpn-map.png">
