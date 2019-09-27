@@ -1,0 +1,27 @@
+{
+  "name": "vpn-map",
+  "version": "1.0.0",
+  "description": "Using Cisco Meraki and Google Maps API's, plot MX's on world map and draw lines between Spokes and Hubs to show VPN paths. Use the VPN Checker Tool for IP reachability across your VPNs.",
+  "main": "src/app.js",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "bottleneck": "^2.19.5",
+    "express": "^4.17.1",
+    "hbs": "^4.0.4",
+    "json-bigint": "^0.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benbenbenbenbenbenbenbenbenben/meraki-vpn-map.git"
+  },
+  "author": "Ben Kersnovske",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benbenbenbenbenbenbenbenbenben/meraki-vpn-map/issues"
+  },
+  "homepage": "https://github.com/benbenbenbenbenbenbenbenbenben/meraki-vpn-map#readme"
+}
