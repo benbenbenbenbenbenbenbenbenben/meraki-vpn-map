@@ -82,7 +82,6 @@ Get VPN Details for each MX:
 
 ## Dependencies
 
-- Path
 - Express
 - Hbs
 - Bottleneck
