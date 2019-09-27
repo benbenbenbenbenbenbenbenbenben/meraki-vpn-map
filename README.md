@@ -1,9 +1,10 @@
 # Cisco Meraki - API VPN Map
 
-Using Cisco Meraki and Google Maps API's, plot MX's on world map and draw lines between Spokes and Hubs to show VPN paths. Use the VPN Checker Tool for IP reachability across your VPNs.
+Using Cisco Meraki and Google Maps API's, plot MX's on world map and draw lines between Spokes and Hubs to show VPN paths. Use the VPN Checker Tool for IP reachability across your VPNs. 
 
 ## Features
 
+- [x] Nodejs server performs API calls and acts as web server.
 - [x] Plot MX/Z devices with VPN enabled on Map
 - [x] Show Offline/Online Devices
 - [x] VPN paths between spokes and hubs
@@ -36,31 +37,20 @@ Install project dependencies:
 ```sh
 $ npm install
 ```
-Start the app:
 
-```sh
-$ node src/app.js
-```
-   
-## Usage
+Add your Meraki api key and your organization ID values to src/app.js
 
-1) Add your Meraki apiKey and your orgID values to src/app.js
-
-2) Add Google Maps api key to templates/views/index.hbs
+Add Google Maps api key to templates/views/index.hbs
 https://maps.googleapis.com/maps/api/js?key=YOURKEYGOESHERE&callback=initMap&sensor=false&libraries=geometry,places&ext=.js
 
-3) Start/Restart the app:
+
+Start the nodejs server:
 
 ```sh
 $ node src/app.js
 ```
-   or if using nodemon:
 
-```sh
-$ nodemon src/app.js
-```
-
-4) Open web browser and go to:
+Open web browser and go to:
 <a href="http://localhost:3000/">http://localhost:3000/<a>
 
 ## API Flow
