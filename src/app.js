@@ -1,6 +1,6 @@
 // Custom Variables:
-const apiKey = ''
-const orgID = ''
+const apiKey = 'e7f4f7f49dcc46217a4696b0751e392cff830026'
+const orgID = '839850'
 
 const path = require('path')
 const express = require('express')
@@ -13,7 +13,7 @@ const port = process.env.PORT || 3000
 
 // Queues API Calls to prevent Meraki API Call limit
 const limiter = new Bottleneck({
-    minTime: 220,
+    minTime: 225,
     trackDoneStatus: true
   });
 
@@ -81,12 +81,18 @@ const mapDevices = async (devicesArr) => {
             mxarr.push(awaitDevices[i]) // Add MX to our MX array
         }
     }
-
     //Check if MX has HA (only want to show 1 MX)
     for(let i = 0; i < mxarr.length; i++) {
         for(let j = i+1; j < mxarr.length; j++) {
             if(mxarr[j].networkId === mxarr[i].networkId) {
-                mxarr.splice(j,1)
+                //check warm spare
+                const warmSpare = await limiter.schedule(() => dashboard.networks.getWarmSpare(mxarr[j].networkId))
+                console.log(warmSpare)
+                for(let l = 0; l < mxarr.length; l++) {
+                    if(mxarr[l].serial === warmSpare.spareSerial) {
+                        mxarr.splice(l,1)
+                    }
+                }
             }
         }
     }

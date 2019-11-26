@@ -53,6 +53,7 @@ function MerakiDashboard(apiKey) {
 
   dashboard.networks = {
     getSiteToSiteVpn: (network_id) => rest.get(`/networks/${network_id}/siteToSiteVpn`),
+    getWarmSpare: (network_id) => rest.get(`/networks/${network_id}/warmSpareSettings`),
   };
 
   dashboard.organizations = {
