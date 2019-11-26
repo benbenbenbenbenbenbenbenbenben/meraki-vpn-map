@@ -1,7 +1,6 @@
 // Custom Variables:
-const apiKey = 'apikey'
+const apiKey = ''
 const orgID = ''
-
 
 const path = require('path')
 const express = require('express')
@@ -14,7 +13,7 @@ const port = process.env.PORT || 3000
 
 // Queues API Calls to prevent Meraki API Call limit
 const limiter = new Bottleneck({
-    minTime: 333,
+    minTime: 220,
     trackDoneStatus: true
   });
 

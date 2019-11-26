@@ -3,27 +3,30 @@
 //https://github.com/tejashah88/node-meraki-dashboard
 //
 const axios = require('axios');
-const JSONbig = require('json-bigint');
 const ERRORS = { INVALID_API_KEY: 'Invalid API Key specified!' };
 
 function MerakiDashboard(apiKey) {
   if (typeof apiKey !== 'string' || apiKey.trim().length === 0)
-    throw new Error(ERRORS.INVALID_API_KEY);
+    throw new Error(ERRORS.INVALID_API_KEY)
 
-  apiKey = apiKey.trim();
+  apiKey = apiKey.trim()
 
-  const dashboard = {};
+  const dashboard = {}
 
+  //Process Successful API Call
   const dataProcessor = response => {
     if(response.status !== 200){
       return response.status;
     } else {
+      console.log(response.config.method, response.config.url)
       return response.data;
     }
   }
-  const errorProcessor = response => {
-    delete response.response.request;
-    return Promise.reject(response.response);
+  //Process Failed API Call, Error logged to console
+  const errorProcessor = error => {
+    console.log('\x1b[31m', error.response.config.method, error.response.config.url, error.response.status, error.response.statusText)
+    delete error.response.request
+    return Promise.reject(error.response)
   };
 
   const rest = {
@@ -33,16 +36,16 @@ function MerakiDashboard(apiKey) {
         'X-Cisco-Meraki-API-Key': apiKey,
         'Content-Type': 'application/json; charset=utf-8',
         'Accept': 'application/json'
-      },
-      transformResponse: [ JSONbig.parse ]
+      }
     }),
     get: function(url, params) {
       return this.client.get(url, { params })
         .then(dataProcessor)
         .catch(errorProcessor);
-    }
+    }   
   };
-
+  
+  //API ENDPOINTS:
   dashboard.devices = {
     get: (network_id, serial) => rest.get(`/networks/${network_id}/devices/${serial}`),
     performanceScore: (network_id, serial) => rest.get(`/networks/${network_id}/devices/${serial}/performance`)
