@@ -1,6 +1,6 @@
 // Custom Variables:
-const apiKey = 'e7f4f7f49dcc46217a4696b0751e392cff830026'
-const orgID = '839850'
+const apiKey = ''
+const orgID = ''
 
 const path = require('path')
 const express = require('express')
