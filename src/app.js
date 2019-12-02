@@ -1,6 +1,7 @@
 // Custom Variables:
-const apiKey = ''
-const orgID = ''
+const config = require('./config')
+const apiKey = config.api
+const orgID = config.org
 
 const path = require('path')
 const express = require('express')
