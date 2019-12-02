@@ -2,4 +2,3 @@
 node_modules 
 package-lock.json
 src/config.js
-src/json/mx.json
