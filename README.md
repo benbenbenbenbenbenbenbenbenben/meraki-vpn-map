@@ -38,7 +38,7 @@ Install project dependencies:
 $ npm install
 ```
 
-Add your Meraki api key and your organization ID values to src/app.js
+Add your Meraki api key and your organization ID values to src/config.js
 
 Add Google Maps api key to templates/views/index.hbs
 https://maps.googleapis.com/maps/api/js?key=YOURKEYGOESHERE&callback=initMap&sensor=false&libraries=geometry,places&ext=.js
