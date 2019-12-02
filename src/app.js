@@ -1,6 +1,6 @@
 // Custom Variables:
-const apiKey = '4571e40e8e9cb7bd60cfdf8a4deb4d7699942a49'
-const orgID = '839850'
+const apiKey = ''
+const orgID = ''
 
 const path = require('path')
 const express = require('express')
@@ -32,6 +32,7 @@ limiter.on("failed", async (error, jobInfo) => {
 const publicDirectoryPath = path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
+const jsonPath = path.join(__dirname, '../src/json')
 
 const lineBreak = '======================================='
 
@@ -220,7 +221,7 @@ const getPerf = async (devicesArr) => {
 const storeJson = async (json) => {
     let data = JSON.stringify(json, null, 2);
 
-    fs.writeFile('mx.json', data, (err) => {
+    fs.writeFile(jsonPath+'/mx.json', data, (err) => {
         if (err) throw err;
         console.log('MX JSON file saved');
     });
@@ -230,7 +231,7 @@ const getMXs = async () => {
 }
 
 const readJson = async () => {
-    let rawdata = fs.readFileSync('mx.json');
+    let rawdata = fs.readFileSync(jsonPath+'/mx.json');
     let oldMxJson= JSON.parse(rawdata);
     return oldMxJson
 }
