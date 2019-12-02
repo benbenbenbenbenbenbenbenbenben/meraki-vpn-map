@@ -23,10 +23,17 @@ function MerakiDashboard(apiKey) {
     }
   }
   //Process Failed API Call, Error logged to console
-  const errorProcessor = error => {
-    console.log('\x1b[31m', error.response.config.method, error.response.config.url, error.response.status, error.response.statusText)
-    delete error.response.request
-    return Promise.reject(error.response)
+  const errorProcessor =  async (error) => {
+    if (error.config && error.response && error.response.status === 4299) {
+        // console.log(error)
+         await sleep(error.response.headers["Retry-After"])
+        console.log(2)
+        return rest.client.get(error.config.url)
+    } else {
+      console.log('\x1b[31m', error.response.config.method, error.response.config.url, error.response.status, error.response.statusText)
+      delete error.response.request
+      return Promise.reject(error.response)
+    }
   };
 
   const rest = {
@@ -44,8 +51,37 @@ function MerakiDashboard(apiKey) {
         .catch(errorProcessor);
     }   
   };
+
+  // // Add a response interceptor
+  // rest.client.interceptors.response.use(function (response) {
+  //   // Any status code that lie within the range of 2xx cause this function to trigger
+  //   // Do something with response data
+  //   return response;
+  // }, async function (error) {
+  //   // Any status codes that falls outside the range of 2xx cause this function to trigger
+  //   // Do something with response error
+  //   console.log('interceptor')
+  //   if (error.config && error.response && error.response.status === 429) {
+  //       console.log(1)
+  //       await sleep(error.headers["Retry-After"])
+  //       console.log(2)
+  //       return rest.client.get(error.config)
+  //   }
+  //   return Promise.reject(error);
+  // })
+
+  //429 Sleep Timeout
+  function sleep(ms){
+    return new Promise(resolve=>{
+        setTimeout(resolve,ms)
+    })
+}
   
   //API ENDPOINTS:
+  dashboard.api_usage = {
+    api_requests: (organization_id, params) => rest.get(`/organizations/${organization_id}/apiRequests`, params)
+  };
+
   dashboard.devices = {
     get: (network_id, serial) => rest.get(`/networks/${network_id}/devices/${serial}`),
     performanceScore: (network_id, serial) => rest.get(`/networks/${network_id}/devices/${serial}/performance`)
