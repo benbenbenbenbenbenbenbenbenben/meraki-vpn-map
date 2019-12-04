@@ -78,8 +78,8 @@ const server = app.listen(port, () => {
     console.log(`VPN App listening on port ${port}!`)
     start()
 })
-// Increase the timeout to 10 minutes 
-server.timeout = 60000; 
+// Increase the timeout to 15 minutes 
+server.timeout = 900000; 
 
 //Startup Script
 const start = () => {
@@ -134,9 +134,9 @@ const getDevices = async () => {
     let filteredDevicesMX = devicesArr.filter(function(device) {
         return device.hasOwnProperty('wan1Ip') //If has wan1IP then its an MX/Z
     })
-    const bottleneckTime = limiter._store.storeOptions.minTime*(filteredDevicesMX.length*2.5)
+    const bottleneckTime = limiter._store.storeOptions.minTime*(filteredDevicesMX.length*3.5)
     console.log(lineBreak)
-    console.log('Executing Approx.',(Math.floor(filteredDevicesMX.length*2.5)),'calls',' - Estimated Time:', (bottleneckTime / 1000), 's')
+    console.log('Executing Approx.',(Math.floor(filteredDevicesMX.length*3.5)),'calls',' - Estimated Time:', (bottleneckTime / 1000), 's')
     console.log(lineBreak)
 
     return filteredDevicesMX
